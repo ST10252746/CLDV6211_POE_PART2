@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,23 +12,36 @@ using ST10242546_CLDV6211_POE_.Models;
 
 namespace ST10242546_CLDV6211_POE_.Controllers
 {
-    [Authorize(Roles = "Admin")]
     public class OrderRequestsController : Controller
     {
         private readonly KhumaloCraftDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public OrderRequestsController(KhumaloCraftDbContext context)
+
+        public OrderRequestsController(KhumaloCraftDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: OrderRequests
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            var khumaloCraftDbContext = _context.OrderRequests.Include(o => o.Order).Include(o => o.Product);
-            return View(await khumaloCraftDbContext.ToListAsync());
+            ViewData["CurrentFilter"] = searchString;
+
+            var orderRequests = from o in _context.OrderRequests.Include(o => o.Order).Include(o => o.Product)
+                                select o;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                orderRequests = orderRequests.Where(o => o.OrderId.ToString() == searchString);
+            }
+
+            return View(await orderRequests.ToListAsync());
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: OrderRequests/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -47,7 +61,7 @@ namespace ST10242546_CLDV6211_POE_.Controllers
 
             return View(orderRequest);
         }
-
+        [Authorize(Roles = "Admin")]
         // GET: OrderRequests/Create
         public IActionResult Create()
         {
@@ -59,6 +73,7 @@ namespace ST10242546_CLDV6211_POE_.Controllers
         // POST: OrderRequests/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("OrderRequestId,OrderId,ProductId,OrderStatus")] OrderRequest orderRequest)
@@ -74,6 +89,7 @@ namespace ST10242546_CLDV6211_POE_.Controllers
             return View(orderRequest);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: OrderRequests/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -95,6 +111,7 @@ namespace ST10242546_CLDV6211_POE_.Controllers
         // POST: OrderRequests/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("OrderRequestId,OrderId,ProductId,OrderStatus")] OrderRequest orderRequest)
@@ -129,6 +146,7 @@ namespace ST10242546_CLDV6211_POE_.Controllers
             return View(orderRequest);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: OrderRequests/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -150,6 +168,7 @@ namespace ST10242546_CLDV6211_POE_.Controllers
         }
 
         // POST: OrderRequests/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
