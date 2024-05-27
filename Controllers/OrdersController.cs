@@ -22,14 +22,14 @@ namespace ST10242546_CLDV6211_POE_.Controllers
             _context = context;
             _userManager = userManager;
         }
-        [Authorize(Roles = "Admin")]
+
         // GET: Orders
         public async Task<IActionResult> Index()
         {
             var khumaloCraftDbContext = _context.Orders.Include(o => o.User);
             return View(await khumaloCraftDbContext.ToListAsync());
         }
-        [Authorize(Roles = "Admin")]
+
         // GET: Orders/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -89,8 +89,8 @@ namespace ST10242546_CLDV6211_POE_.Controllers
             return RedirectToAction(nameof(Admin));
         }
 
-        // Other methods remain unchanged...
-        [Authorize(Roles = "Admin")]
+
+
         // GET: Orders/Create
         public IActionResult Create()
         {
@@ -112,7 +112,7 @@ namespace ST10242546_CLDV6211_POE_.Controllers
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", order.UserId);
             return View(order);
         }
-        [Authorize(Roles = "Admin")]
+
         // GET: Orders/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -129,7 +129,7 @@ namespace ST10242546_CLDV6211_POE_.Controllers
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", order.UserId);
             return View(order);
         }
-        [Authorize(Roles = "Admin")]
+
         // POST: Orders/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -163,7 +163,7 @@ namespace ST10242546_CLDV6211_POE_.Controllers
             ViewData["UserId"] = new SelectList(_context.ApplicationUsers, "Id", "Id", order.UserId);
             return View(order);
         }
-        [Authorize(Roles = "Admin")]
+
         // GET: Orders/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -182,7 +182,7 @@ namespace ST10242546_CLDV6211_POE_.Controllers
 
             return View(order);
         }
-        [Authorize(Roles = "Admin")]
+
         // POST: Orders/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -222,5 +222,4 @@ namespace ST10242546_CLDV6211_POE_.Controllers
             return _context.Orders.Any(e => e.OrderId == id);
         }
     }
-
 }
