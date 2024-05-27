@@ -7,7 +7,7 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn" style="background-color: orangered; color: white;"> Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -30,11 +30,13 @@
             <td>
                 @Html.DisplayFor(modelItem => item.User.Id)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.OrderId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.OrderId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.OrderId">Delete</a>
-            </td>
+                <td>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <a asp-action="Edit" asp-route-id="@item.OrderId" class="btn" style="background-color: orangered; color: white;">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.OrderId" class="btn" style="background-color: orangered; color: white;">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.OrderId" class="btn" style="background-color: orangered; color: white;">Delete</a>
+                    </div>
+                </td>
         </tr>
 }
     </tbody>

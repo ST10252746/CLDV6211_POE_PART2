@@ -29,7 +29,7 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn" style="background-color: orangered; color: white;"> Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -59,9 +59,11 @@
                 @Html.DisplayFor(modelItem => item.Product.ProductId)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.OrderRequestId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.OrderRequestId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.OrderRequestId">Delete</a>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                        <a asp-action="Edit" asp-route-id="@item.ProductId" class="btn" style="background-color: orangered; color: white;">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.ProductId" class="btn" style="background-color: orangered; color: white" ;>Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.ProductId" class="btn" style="background-color: orangered; color: white" ;>Delete</a>
+                    </div>
             </td>
         </tr>
 }
