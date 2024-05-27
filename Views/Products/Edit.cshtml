@@ -30,12 +30,21 @@
             </div>
             <div class="form-group">
                 <label asp-for="Category" class="control-label"></label>
-                <input asp-for="Category" class="form-control" />
+                <select asp-for="Category" class="form-control">
+                    <option value="Wooden Work">Wooden Work</option>
+                    <option value="Metal Work">Metal Work</option>
+                    <option value="Woven Work">Woven Work</option>
+                    <option value="Glass Work">Glass Work</option>
+                    <option value="Beaded Work">Beaded Work</option>
+                </select>
                 <span asp-validation-for="Category" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Availability" class="control-label"></label>
-                <input asp-for="Availability" class="form-control" />
+                <select asp-for="Availability" class="form-control">
+                    <option value="True">True</option>
+                    <option value="False">False</option>
+                </select>
                 <span asp-validation-for="Availability" class="text-danger"></span>
             </div>
             <div class="form-group">
