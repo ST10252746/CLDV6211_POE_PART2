@@ -23,45 +23,45 @@
         </div>
     </div>
 </nav>
-
 <div class="container-products">
-<h2>Admin - Orders</h2>
+    <h1>Orders</h1>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Order ID</th>
-            <th>Order Date</th>
-            <th>User Email</th>
-            <th>Status</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var order in Model)
-        {
+    <table class="table">
+        <thead>
             <tr>
-                <td>@order.OrderId</td>
-                <td>@order.OrderDate</td>
-                <td>@order.UserEmail</td>
-                <td>@order.Status</td>
-                <td>
-                    @if (order.Status == "Pending")
-                    {
-                        <a asp-action="ProcessOrder" asp-route-id="@order.OrderId" class="btn btn-primary">Approve Order</a>
-                    }
-                    else
-                    {
-                        <span></span>
-                    }
-                </td>
+                <th>Order ID</th>
+                <th>Order Date</th>
+                <th>User Email</th>
+                <th>Status</th>
+                <th>Actions</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td>@order.OrderId</td>
+                    <td>@order.OrderDate</td>
+                    <td>@order.UserEmail</td>
+                    <td>@order.Status</td>
+
+                    <td>
+                        @if (order.Status == "Pending")
+                        {
+                            <a asp-action="ProcessOrder" asp-route-id="@order.OrderId" class="btn btn-primary">Approve Order</a>
+                        }
+                        else
+                        {
+                            <span></span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
 <style>
-                body {
+    body {
         background-color: #f5f5f5; /* Light gray background color */
         margin: 0;
         padding: 0;
@@ -77,7 +77,7 @@
     }
 
     main {
-        background-color: orangered;
+        background-color: #f2f2f2;
     }
 
     h1 {
@@ -113,7 +113,7 @@
         }
 
     .btn-primary {
-        background-color: #AB7442;
+        background-color: #ff4500;
         color: #fff;
         border: none;
         padding: 6px 12px;
@@ -123,8 +123,8 @@
 
         .btn-primary:hover {
             background-color: #F5DEB3;
-            border-color: #895d35 !important;
-            color: #895d35;
+            border-color: #ffa07a !important;
+            color: #ffa07a;
         }
 
     .btn-danger {
@@ -139,5 +139,10 @@
         .btn-danger:hover {
             background-color: #c82333;
         }
+
+    /* Target the row with the headings (the <th> elements) */
+    .table thead tr {
+        background-color: #f2f2f2;
+    }
 
 </style>
